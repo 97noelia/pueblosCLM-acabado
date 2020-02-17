@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="Poblaciones">
+        <form action="Poblaciones" method="post">
         <% String provincia_activa = ( String ) request.getAttribute("provincia"); 
           ArrayList<String> pueblos = (ArrayList<String> ) request.getAttribute("pueblos"); 
           ArrayList<String> provincias = (ArrayList<String> ) request.getAttribute("provincias"); 
@@ -24,7 +24,12 @@
         <h2>Provincia Activa: <%=provincia_activa%><br>
          Provincias:<select name="provincias">
                 <% for ( int p=0;p<provincias.size();p++){ %>
-                <option value="<%=provincias.get(p)%>"><%=provincias.get(p)%></option>         
+                <% String cadenaSelected = "";
+                if(provincia_activa.equals(provincias.get(p))){
+                    cadenaSelected = "selected";
+                }
+                %>
+                <option <%= cadenaSelected %> value="<%=provincias.get(p)%>"><%=provincias.get(p)%></option>         
                 <%}%>
             </select>    
         
@@ -33,6 +38,7 @@
                 <option value="<%=pueblos.get(i)%>"><%=pueblos.get(i)%></option>       
                 <%}%>
             </select>
+            <input type="submit" value="seleccionar">
         </form>
     </body>
 </html>
